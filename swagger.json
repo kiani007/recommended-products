@@ -1,0 +1,184 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Product Recommendation API",
+      "description": "API documentation for the product recommendation service.",
+      "version": "1.0.0",
+      "contact": {
+        "name": "API Support",
+        "email": "support@api.com",
+        "url": "https://api.com"
+      }
+    },
+    "servers": [
+      {
+        "url": "http://localhost:5000/api/v1/products",
+        "description": "Local development server"
+      }
+    ],
+    "paths": {
+      "/products": {
+        "get": {
+          "summary": "Fetch a list of products",
+          "description": "Retrieves a list of active products from the store.",
+          "tags": ["Products"],
+          "responses": {
+            "200": {
+              "description": "A list of products.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "The unique ID of the product."
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "The name of the product."
+                        },
+                        "metafields": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "The key of the metafield."
+                              },
+                              "value": {
+                                "type": "string",
+                                "description": "The value of the metafield."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "example": "Error fetching products"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/products/{productId}": {
+        "get": {
+          "summary": "Fetch a specific product by ID",
+          "description": "Retrieves a product by its ID.",
+          "tags": ["Products"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "productId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the product to fetch."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A product object.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "metafields": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Product not found."
+            },
+            "500": {
+              "description": "Internal server error."
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Product": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The unique identifier of the product."
+            },
+            "title": {
+              "type": "string",
+              "description": "The name of the product."
+            },
+            "metafields": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      }
+    }
+  }
+  
