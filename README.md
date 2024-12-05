@@ -9,7 +9,7 @@ npm install
 ## to start server run 
 npm start 
 
-#  Savager API LINK
+#  Sawagger API LINK
 http://localhost:5000/api-docs/
 
 ## Updating product API 
